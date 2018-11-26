@@ -35,3 +35,16 @@ egrep '^[^>]' fasta.fa | egrep -cve '-.*'
 # (i.e. declining order) as human numeric readable (with -h) (meaning reading 1 < 2 < 3 < 4 and so on) 
 
 egrep -o 'G{3}[TUCtuc][AGag]' fasta.fa | sort | uniq -ic | sort -rh
+
+# PART 3
+
+# Εxports only the sequence names and finds out how many sequences are from human (hg19).
+
+# Εxports only the sequence names
+# We export only the lines starting with '>' and then use gawk to get the first field which has the sequence names
+egrep '^>' fasta.fa | gawk '{print $1}'
+
+# Finds out (counts) how many sequences are from human (those who have hg19 on the name)
+egrep '^>' fasta.fa | gawk '{print $1}' | egrep -c 'hg19'
+
+# same result with only egrep -c 'hg19' fasta.fa
